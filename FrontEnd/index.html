@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+	<script src="./Conection.js"></script>
+	<title>Rod Bank</title>
+
+	<style>
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Rod Bank</h1>
+
+	<!-- CLIENT -->
+	<div class="card " id="clientInfo">
+		<h3 class="card-title">Client details</h3>
+		<div class="form-group card-body">
+			<label for="enter-client-number">Enter your client number</label>
+			<input type="text" id="enter-client-number" />
+			<button class="btn btn-primary" id="button-get-client-details" onclick="getClientDetails()">Get client
+				details</button>
+			<button class="btn btn-secondary" id="button-delete-client" onclick="deleteClient()">Delete client</button>
+			<button class="btn btn-secondary" data-toggle="modal" data-target="#add-client-modal">Add Client</button>
+		</div>
+		<div id="client-details" class="hidden">
+			<div>Client Number: <span id="client-no"></span></div>
+			<div>First Name: <span id="client-fname"></span></div>
+			<div>Last Name: <span id="client-lname"></span></div>
+			<div>City: <span id="client-city"></span></div>
+		</div>
+		<div id="client-info-response"></div>
+	</div>
+
+	<!-- ADD CLIENT MODAL -->
+	<div class="modal" tabindex="-1" id="add-client-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Client</h5>
+					<button type="button" class="close" onclick="clearClientModal()" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group form-vertical">
+						<label for="enter-first-name">First Name: </label>
+						<input type="text" id="enter-first-name" />
+						</br>
+						<label for="enter-last-name">Last Name: </label>
+						<input type="text" id="enter-last-name" />
+						</br>
+						<label for="enter-city">City: </label>
+						<input type="text" id="enter-city" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="createClient()">Create</button>
+					<button type="button" class="btn btn-secondary" onclick="clearClientModal()"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- ACCOUNT -->
+	<div class="card " id="accountInfo">
+		<h3 class="card-title">Account details</h3>
+		<div class="form-group card-body">
+			<label for="enter-account-number">Enter your account number</label>
+			<input type="text" id="enter-account-number" />
+			<button class="btn btn-primary" id="button-get-account-details" onclick="getAccountDetails()">Get account
+				details</button>
+			<button class="btn btn-secondary" id="button-delete-client" onclick="deleteAccount()">Delete Account</button>
+			<button class="btn btn-secondary" data-toggle="modal" data-target="#add-account-modal">Add Account</button>
+		</div>
+		<div id="account-details" class="hidden">
+			<div>Account number: <span id="acc-no"></span>
+			</div>
+			<div>Account type: <span id="acc-type"></span>
+			</div>
+			<div>Owner: <span id="acc-owner"></span></div>
+			<div>Balance: <span id="acc-balance"></span></div>
+		</div>
+		<div id="account-info-response"></div>
+	</div>
+
+	<!-- ADD ACCOUNT MODAL -->
+	<div class="modal" tabindex="-1" id="add-account-modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Add Account</h5>
+					<button type="button" class="close" onclick="clearAccountModal()" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group form-vertical">
+						<label for="enter-ac-type">First Name: </label>
+						<select id="enter-ac-type">
+							<option>Checkings</option>
+							<option>Savings</option>
+						</select>
+						</br>
+						<label for="enter-ac-owner">Client Id: </label>
+						<input type="text" id="enter-ac-owner" />
+						</br>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" onclick="createAccount()">Create</button>
+					<button type="button" class="btn btn-secondary" onclick="clearAccountModal()"
+						data-dismiss="modal">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- DEPOSIT -->
+	<div class="card" id="deposit-card">
+		<h3 class="card-title">Deposit money</h3>
+		<div class="card-body">
+			<label for="account-to-deposit">Enter account to deposit: </label>
+			<input type="number" id="account-to-deposit" />
+			<label for="amount-deposit">Enter amount to deposit: </label>
+			<input type="number" id="amount-deposit" />
+			<button class="btn btn-primary" id="button-make-deposit" onclick="deposit()">Deposit money</button>
+		</div>
+	</div>
+
+	<!-- DRAW -->
+	<div class="card" id="draw-card">
+		<h3 class="card-title">Draw money</h3>
+		<div class="card-body">
+			<label for="account-to-draw">Enter account to draw: </label>
+			<input type="number" id="account-to-draw" />
+			<label for="amount-draw">Enter amount to draw: </label>
+			<input type="number" id="amount-draw" />
+			<button class="btn btn-primary" id="button-make-draw" onclick="draw()">Draw money</button>
+		</div>
+	</div>
+
+	<!-- TRANSFER -->
+	<div class="card" id="transfer-card">
+		<h3 class="card-title">Transfer money</h3>
+		<div class="card-body">
+			<label for="sending-account">Enter sending account: </label>
+			<input type="number" id="sending-account" />
+			<label for="receiving-account">Enter receiving account: </label>
+			<input type="number" id="receiving-account" />
+			<label for="amount-transfer">Enter receiving amount: </label>
+			<input type="number" id="amount-transfer" />
+			<button class="btn btn-primary" id="button-make-transfer" onclick="makeTransfer()">Transfer money</button>
+		</div>
+	</div>
+</body>
+
+</html>
